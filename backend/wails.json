@@ -2,12 +2,11 @@
   "$schema": "https://wails.io/schemas/config.v2.json",
   "name": "bangocat",
   "outputfilename": "bangocat",
-  "frontend": {
-    "dir": "frontend",
-    "install": "",
-    "build": "",
-    "bridge": "wailsjs"
-  },
+  "frontend:dir": "frontend",
+  "frontend:install": "",
+  "frontend:build": "",
+  "frontend:dev:serverUrl": "http://localhost:5173",
+  "frontend:bridge": "wailsjs",
   "author": {
     "name": "nguyentruongtho2001",
     "email": "nguyentruongtho.dev@gmail.com"
