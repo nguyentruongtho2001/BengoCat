@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Bangocat Live2D</title>
-  </head>
-  <body>
-<canvas id="live2d-canvas"></canvas>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mèo gõ phím</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="cat-container">
+    <img id="cat-image" src="public/assets/none.png" alt="Mèo" />
+  </div>
 
-<div id="key-image-container"
-     style="position: absolute; top: 540px; left: 370px; z-index: 20;">
-  <img id="key-image"
-       src=""
-       alt=""
-       style="width: 300px; height: 400px; display: none;" />
-</div>
-
-<script src="/live2d/live2dcubismcore.js"></script>
-<script type="module" src="/src/main.js"></script>
-
+  <script src="src/main.js"></script>
+</body>
 </html>
