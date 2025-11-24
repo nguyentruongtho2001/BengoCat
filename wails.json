@@ -1,0 +1,20 @@
+{
+  "name": "Bangocat",
+  "author": {
+    "name": "Tho",
+    "email": "your@email.com"
+  },
+  "description": "Cute Pomodoro Cat App",
+  "version": "1.0.0",
+  "frontend": {
+    "dir": "frontend",
+    "install": "npm install",
+    "build": "npm run build",
+    "wailsjsdir": "frontend/wailsjs"
+  },
+  "wails": {
+    "windows": {
+      "icon": "bangocat.ico"
+    }
+  }
+}

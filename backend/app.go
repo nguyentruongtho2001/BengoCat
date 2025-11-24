@@ -1,27 +1,24 @@
-package main
+package backend
 
 import (
-	"context"
-	"fmt"
+	"bangocat/backend/api"
+	"bangocat/backend/infrastructure"
+	"bangocat/backend/usecase"
 )
 
-// App struct
-type App struct {
-	ctx context.Context
+// BangocatApp gom các API lại để bind vào Wails
+type BangocatApp struct {
+	Pomodoro *api.PomodoroAPI
 }
 
-// NewApp creates a new App application struct
-func NewApp() *App {
-	return &App{}
-}
+// Hàm khởi tạo App
+func NewApp() *BangocatApp {
+	// Khởi tạo Pomodoro (có repo + usecase)
+	repo := infrastructure.NewInMemoryPomodoroRepo()
+	use := usecase.NewPomodoroUsecase(repo)
+	pomodoroAPI := api.NewPomodoroAPI(use)
 
-// startup is called when the app starts. The context is saved
-// so we can call the runtime methods
-func (a *App) startup(ctx context.Context) {
-	a.ctx = ctx
-}
-
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+	return &BangocatApp{
+		Pomodoro: pomodoroAPI,
+	}
 }

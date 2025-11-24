@@ -1,9 +1,7 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
+// https://vite.dev/config/
 export default defineConfig({
-  base: './', // đảm bảo đường dẫn tương đối khi build
-  build: {
-    outDir: '../backend/frontend', // nơi Wails sẽ lấy giao diện
-    emptyOutDir: true              // xoá sạch trước khi build mới
-  },
-});
+  plugins: [vue()],
+})

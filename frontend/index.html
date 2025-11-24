@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <title>SimpCat</title>
-</head>
-<body>
-  <div id="cat-container">
-    <img id="cat-image" src="/assets/none.png" alt="Mèo" />
-  </div>
-
-  <!-- Vite sẽ bundle src/main.js thành file trong /assets -->
-  <script type="module" src="/src/main.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bangocat</title>
+    <style>
+      html, body, #app {
+        margin: 0;
+        padding: 0;
+        background: transparent; /* nền trong suốt */
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
