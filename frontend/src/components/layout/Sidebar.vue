@@ -1,331 +1,309 @@
 <template>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <h3 class="logo">🐱 Bangocat</h3>
-    </div>
-    
-    <nav class="sidebar-nav">
-      <div class="nav-section">
-        <router-link 
-          to="/" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/') }"
-        >
-          <span class="nav-icon">ℹ️</span>
-          <span class="nav-label">Giới thiệu</span>
-        </router-link>
-      </div>
-      
-      <div class="nav-section">
-        <p class="nav-section-title">Công cụ học</p>
-        
-        <router-link 
-          to="/pomodoro" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/pomodoro') }"
-        >
-          <span class="nav-icon">⏱️</span>
-          <span class="nav-label">Pomodoro</span>
-        </router-link>
-        
-        <router-link 
-          to="/study-roadmap" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/study-roadmap') }"
-        >
-          <span class="nav-icon">🗺️</span>
-          <span class="nav-label">Lộ trình học</span>
-        </router-link>
-        
-        <router-link 
-          to="/quick-notes" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/quick-notes') }"
-        >
-          <span class="nav-icon">📝</span>
-          <span class="nav-label">Ghi chú</span>
-        </router-link>
-        
-        <router-link 
-          to="/dictionary" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/dictionary') }"
-        >
-          <span class="nav-icon">📚</span>
-          <span class="nav-label">Từ điển</span>
-        </router-link>
-        
-        <router-link 
-          to="/calendar" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/calendar') }"
-        >
-          <span class="nav-icon">📅</span>
-          <span class="nav-label">Lịch</span>
-        </router-link>
-      </div>
-      
-      <div class="nav-section">
-        <p class="nav-section-title">Bổ sung</p>
-        
-        <router-link 
-          to="/music" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/music') }"
-        >
-          <span class="nav-icon">🎵</span>
-          <span class="nav-label">Nhạc nền</span>
-        </router-link>
-        
-        <router-link 
-          to="/zen" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/zen') }"
-        >
-          <span class="nav-icon">🧘</span>
-          <span class="nav-label">Zen Mode</span>
-        </router-link>
-        
-        <router-link 
-          to="/stats" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/stats') }"
-        >
-          <span class="nav-icon">📊</span>
-          <span class="nav-label">Thống kê</span>
-        </router-link>
-        
-        <router-link 
-          to="/customize-cat" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/customize-cat') }"
-        >
-          <span class="nav-icon">🎨</span>
-          <span class="nav-label">Tùy chỉnh mèo</span>
-        </router-link>
-      </div>
-      
-      <div class="nav-section">
-        <router-link 
-          to="/settings" 
-          class="nav-link"
-          :class="{ 'router-link-active': isActive('/settings') }"
-        >
-          <span class="nav-icon">⚙️</span>
-          <span class="nav-label">Cài đặt</span>
-        </router-link>
-      </div>
-    </nav>
-  </aside>
+    <aside class="sidebar" :class="{ collapsed }">
+        <div class="sidebar-header">
+            <div class="logo" @click="$router.push('/')">
+                <span class="logo-icon">🐱</span>
+                <span class="logo-text" v-if="!collapsed">Bangocat</span>
+            </div>
+            <button
+                class="collapse-btn"
+                @click="$emit('toggle')"
+                v-if="!collapsed"
+            >
+                <span class="icon">←</span>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Study Tools Section -->
+            <div class="nav-section">
+                <h3 class="section-title" v-if="!collapsed">Study Tools</h3>
+                <NavItem
+                    to="/"
+                    icon="🏠"
+                    label="Dashboard"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/'"
+                />
+                <NavItem
+                    to="/pomodoro"
+                    icon="⏱️"
+                    label="Pomodoro"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/pomodoro'"
+                />
+                <NavItem
+                    to="/study-roadmap"
+                    icon="🗺️"
+                    label="Study Plan"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/study-roadmap'"
+                />
+                <NavItem
+                    to="/quick-notes"
+                    icon="📝"
+                    label="Quick Notes"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/quick-notes'"
+                />
+            </div>
+
+            <!-- Learning Resources -->
+            <div class="nav-section">
+                <h3 class="section-title" v-if="!collapsed">Learning</h3>
+                <NavItem
+                    to="/dictionary"
+                    icon="📚"
+                    label="Dictionary"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/dictionary'"
+                />
+                <NavItem
+                    to="/calendar"
+                    icon="📅"
+                    label="Calendar"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/calendar'"
+                />
+            </div>
+
+            <!-- Wellness -->
+            <div class="nav-section">
+                <h3 class="section-title" v-if="!collapsed">Wellness</h3>
+                <NavItem
+                    to="/music"
+                    icon="🎵"
+                    label="Focus Music"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/music'"
+                />
+                <NavItem
+                    to="/zen"
+                    icon="🧘"
+                    label="Zen Mode"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/zen'"
+                />
+            </div>
+
+            <!-- Insights -->
+            <div class="nav-section">
+                <h3 class="section-title" v-if="!collapsed">Insights</h3>
+                <NavItem
+                    to="/stats"
+                    icon="📊"
+                    label="Statistics"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/stats'"
+                />
+                <NavItem
+                    to="/customize-cat"
+                    icon="🎨"
+                    label="Customize Cat"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/customize-cat'"
+                />
+            </div>
+
+            <!-- Settings -->
+            <div class="nav-section">
+                <NavItem
+                    to="/settings"
+                    icon="⚙️"
+                    label="Settings"
+                    :collapsed="collapsed"
+                    :active="$route.path === '/settings'"
+                />
+            </div>
+        </nav>
+
+        <!-- Current Cat Preview -->
+        <div class="cat-preview" v-if="!collapsed">
+            <div class="cat-avatar">🐱</div>
+            <div class="cat-info">
+                <p class="cat-name">Bangocat</p>
+                <p class="cat-level">Level 5 • 120 XP</p>
+            </div>
+        </div>
+    </aside>
 </template>
 
 <script>
+import NavItem from "./NavItem.vue";
+
 export default {
-  name: 'Sidebar',
-  methods: {
-    isActive(path) {
-      return this.$route.path === path
-    }
-  }
-}
+    name: "Sidebar",
+    components: { NavItem },
+    props: {
+        collapsed: Boolean,
+    },
+};
 </script>
 
 <style scoped>
 .sidebar {
-  width: 260px;
-  min-width: 260px;
-  height: 100vh;
-  background-color: var(--card-bg);
-  border-right: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-lg);
-  overflow-y: auto;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    background: var(--ios-background-primary);
+    border-right: 1px solid var(--ios-system-gray6);
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-base);
+    overflow: hidden;
 }
 
-.sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: var(--radius-full);
-  transition: background var(--transition-base);
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: var(--border-light);
+.sidebar.collapsed {
+    width: 80px;
+    min-width: 80px;
 }
 
 /* Header */
 .sidebar-header {
-  padding: var(--spacing-md) 0;
-  border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--ios-system-gray6);
 }
 
 .logo {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.logo:hover {
+    opacity: 0.8;
+}
+
+.logo-icon {
+    font-size: 28px;
+}
+
+.logo-text {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--ios-label-primary);
+    letter-spacing: -0.5px;
+}
+
+.collapse-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.collapse-btn:hover {
+    background: var(--ios-system-gray6);
 }
 
 /* Navigation */
 .sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  flex: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    overflow-y: auto;
 }
 
 .nav-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
 }
 
-.nav-section-title {
-  margin: 0 var(--spacing-md) 0 0;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
+.section-title {
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--ios-label-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* Navigation Links */
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md) var(--spacing-lg);
-  color: var(--text-secondary);
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  cursor: pointer;
-  outline: none;
-  position: relative;
+/* Cat Preview */
+.cat-preview {
+    padding: var(--spacing-lg);
+    background: var(--ios-background-secondary);
+    border-top: 1px solid var(--ios-system-gray6);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
 }
 
-.nav-link:hover {
-  background-color: var(--background-secondary);
-  color: var(--text-color);
+.cat-avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(
+        135deg,
+        var(--ios-system-orange),
+        var(--ios-system-yellow)
+    );
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
 }
 
-.nav-link:active {
-  transform: scale(0.98);
+.cat-info {
+    flex: 1;
 }
 
-.nav-link.router-link-active {
-  background-color: rgba(0, 122, 255, 0.1);
-  color: var(--primary-color);
-  font-weight: 600;
+.cat-name {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--ios-label-primary);
 }
 
-.nav-link.router-link-active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 24px;
-  background-color: var(--primary-color);
-  border-radius: 0 3px 3px 0;
-}
-
-.nav-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  font-size: 16px;
-}
-
-.nav-label {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.cat-level {
+    margin: 0;
+    font-size: var(--font-size-xs);
+    color: var(--ios-label-tertiary);
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 240px;
-    min-width: 240px;
-    padding: var(--spacing-md);
-    gap: var(--spacing-md);
-  }
-  
-  .nav-link {
-    padding: var(--spacing-sm) var(--spacing-md);
-  }
-}
-
 @media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    min-width: auto;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  
-  .sidebar-header {
-    border-bottom: none;
-    border-right: 1px solid var(--border-color);
-    padding: 0 var(--spacing-lg) 0 0;
-    min-width: max-content;
-  }
-  
-  .sidebar-nav {
-    flex-direction: row;
-    gap: 0;
-  }
-  
-  .nav-section {
-    display: flex;
-    flex-direction: row;
-    gap: 0;
-    border-right: 1px solid var(--border-color);
-  }
-  
-  .nav-section-title {
-    display: none;
-  }
-  
-  .nav-link {
-    padding: var(--spacing-md);
-    border-radius: 0;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .nav-link.router-link-active::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    top: auto;
-    width: 100%;
-    height: 2px;
-    border-radius: 2px 2px 0 0;
-  }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--ios-system-gray6);
+    }
+
+    .sidebar.collapsed {
+        width: 100%;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0;
+    }
+
+    .nav-section {
+        flex-direction: row;
+        gap: 0;
+    }
+
+    .section-title {
+        display: none;
+    }
+
+    .cat-preview {
+        display: none;
+    }
 }
 </style>

@@ -1,535 +1,580 @@
 <template>
-  <div class="dashboard-container">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1 class="hero-title">Chào mừng đến với Bangocat</h1>
-          <p class="hero-subtitle">Ứng dụng Pomodoro kết hợp mèo dễ thương để giúp bạn học tập hiệu quả hơn</p>
-          <div class="hero-buttons">
-            <router-link to="/pomodoro" class="btn-hero btn-primary">
-              <span>⏱️</span>
-              Bắt đầu Pomodoro
-            </router-link>
-            <router-link to="/study-roadmap" class="btn-hero btn-secondary">
-              <span>🗺️</span>
-              Xem lộ trình
-            </router-link>
-          </div>
-        </div>
-        <div class="hero-mascot">
-          <p class="mascot-emoji">🐱</p>
-          <p class="mascot-text">Bangocat đang chờ bạn!</p>
-        </div>
-      </div>
-    </section>
+    <div class="dashboard-page">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <div class="welcome-text">
+                    <h1 class="welcome-title">
+                        Good {{ timeOfDay }}, Friend! 👋
+                    </h1>
+                    <p class="welcome-subtitle">
+                        Ready to make today productive with Bangocat?
+                    </p>
+                </div>
+                <div class="welcome-mascot">
+                    <div class="mascot-animation">🐱</div>
+                    <p class="mascot-message">Let's study together!</p>
+                </div>
+            </div>
 
-    <!-- Features Grid -->
-    <section class="features-section">
-      <h2 class="section-title">Tính năng chính</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">⏱️</div>
-          <h3>Pomodoro Timer</h3>
-          <p>Quản lý thời gian làm việc với kỹ thuật Pomodoro hiệu quả</p>
-          <router-link to="/pomodoro" class="feature-link">Khám phá →</router-link>
-        </div>
+            <div class="quick-stats">
+                <div class="stat-bubble">
+                    <span class="stat-icon">🎯</span>
+                    <div class="stat-info">
+                        <div class="stat-value">3/8</div>
+                        <div class="stat-label">Today's Sessions</div>
+                    </div>
+                </div>
+                <div class="stat-bubble">
+                    <span class="stat-icon">⏱️</span>
+                    <div class="stat-info">
+                        <div class="stat-value">75m</div>
+                        <div class="stat-label">Focus Time</div>
+                    </div>
+                </div>
+                <div class="stat-bubble">
+                    <span class="stat-icon">🔥</span>
+                    <div class="stat-info">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="feature-card">
-          <div class="feature-icon">📝</div>
-          <h3>Ghi chú nhanh</h3>
-          <p>Lưu ý các ý tưởng và thông tin quan trọng ngay lập tức</p>
-          <router-link to="/quick-notes" class="feature-link">Khám phá →</router-link>
-        </div>
+        <!-- Quick Actions -->
+        <section class="quick-actions-section">
+            <h2 class="section-title">Quick Actions</h2>
+            <div class="actions-grid">
+                <button class="action-card" @click="$router.push('/pomodoro')">
+                    <span class="action-icon">⏱️</span>
+                    <span class="action-label">Start Pomodoro</span>
+                    <span class="action-desc">25 min focus session</span>
+                </button>
 
-        <div class="feature-card">
-          <div class="feature-icon">📚</div>
-          <h3>Từ điển</h3>
-          <p>Tra cứu từ vựng và mở rộng vốn từ của bạn mọi lúc</p>
-          <router-link to="/dictionary" class="feature-link">Khám phá →</router-link>
-        </div>
+                <button
+                    class="action-card"
+                    @click="$router.push('/quick-notes')"
+                >
+                    <span class="action-icon">📝</span>
+                    <span class="action-label">Quick Note</span>
+                    <span class="action-desc">Jot down ideas</span>
+                </button>
 
-        <div class="feature-card">
-          <div class="feature-icon">🗺️</div>
-          <h3>Lộ trình học</h3>
-          <p>Lập kế hoạch học tập chi tiết với các mục tiêu rõ ràng</p>
-          <router-link to="/study-roadmap" class="feature-link">Khám phá →</router-link>
-        </div>
+                <button class="action-card" @click="$router.push('/music')">
+                    <span class="action-icon">🎵</span>
+                    <span class="action-label">Focus Music</span>
+                    <span class="action-desc">Boost concentration</span>
+                </button>
 
-        <div class="feature-card">
-          <div class="feature-icon">📅</div>
-          <h3>Lịch & To-do</h3>
-          <p>Quản lý công việc hàng ngày và theo dõi tiến độ</p>
-          <router-link to="/calendar" class="feature-link">Khám phá →</router-link>
-        </div>
+                <button class="action-card" @click="$router.push('/zen')">
+                    <span class="action-icon">🧘</span>
+                    <span class="action-label">Zen Mode</span>
+                    <span class="action-desc">Deep focus</span>
+                </button>
+            </div>
+        </section>
 
-        <div class="feature-card">
-          <div class="feature-icon">🎵</div>
-          <h3>Nhạc nền</h3>
-          <p>Nghe nhạc thư giãn để tăng cường sự tập trung</p>
-          <router-link to="/music" class="feature-link">Khám phá →</router-link>
-        </div>
+        <!-- Recent Activity -->
+        <section class="activity-section">
+            <div class="section-header">
+                <h2 class="section-title">Recent Activity</h2>
+                <button class="see-all-btn">See All</button>
+            </div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <span class="activity-icon">🎯</span>
+                    <div class="activity-content">
+                        <p class="activity-text">Completed Pomodoro session</p>
+                        <p class="activity-time">25 min • 10:30 AM</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-icon">📝</span>
+                    <div class="activity-content">
+                        <p class="activity-text">Created note "Study plan"</p>
+                        <p class="activity-time">9:45 AM</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-icon">📚</span>
+                    <div class="activity-content">
+                        <p class="activity-text">Looked up "algorithm"</p>
+                        <p class="activity-time">Yesterday</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="feature-card">
-          <div class="feature-icon">🧘</div>
-          <h3>Zen Mode</h3>
-          <p>Chế độ thiền định giúp bạn thư giãn và khôi phục năng lượng</p>
-          <router-link to="/zen" class="feature-link">Khám phá →</router-link>
-        </div>
+        <!-- Goals Progress -->
+        <section class="goals-section">
+            <h2 class="section-title">Daily Goals</h2>
+            <div class="goals-grid">
+                <div class="goal-card">
+                    <div class="goal-header">
+                        <span class="goal-icon">🎯</span>
+                        <div class="goal-info">
+                            <h3 class="goal-title">Pomodoro Sessions</h3>
+                            <p class="goal-progress">3/8 completed</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 37.5%"></div>
+                    </div>
+                </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3>Thống kê</h3>
-          <p>Theo dõi tiến độ học tập và phân tích hiệu suất</p>
-          <router-link to="/stats" class="feature-link">Khám phá →</router-link>
-        </div>
-      </div>
-    </section>
+                <div class="goal-card">
+                    <div class="goal-header">
+                        <span class="goal-icon">⏱️</span>
+                        <div class="goal-info">
+                            <h3 class="goal-title">Focus Time</h3>
+                            <p class="goal-progress">75/120 minutes</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 62.5%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-      <div class="stat-card">
-        <div class="stat-number">25</div>
-        <div class="stat-label">Phút mỗi session</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">5</div>
-        <div class="stat-label">Phút nghỉ ngơi</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">4</div>
-        <div class="stat-label">Lần lặp lại</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">∞</div>
-        <div class="stat-label">Niềm vui</div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-      <h2>Sẵn sàng tăng năng suất?</h2>
-      <p>Hãy bắt đầu cuộc hành trình học tập của bạn ngay hôm nay cùng Bangocat</p>
-      <router-link to="/customize-cat" class="btn-cta">
-        <span>🎨</span>
-        Cá nhân hóa mèo của bạn
-      </router-link>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section">
-      <h3>Về Bangocat</h3>
-      <p>
-        Bangocat là một ứng dụng học tập hiệu quả kết hợp kỹ thuật Pomodoro với một chú mèo dễ thương. 
-        Được thiết kế để giúp bạn duy trì sự tập trung, quản lý thời gian và đạt được mục tiêu học tập của mình. 
-        Mỗi session hoàn thành đều mang lại niềm vui từ Bangocat.
-      </p>
-      <div class="about-links">
-        <router-link to="/settings" class="about-link">⚙️ Cài đặt</router-link>
-        <router-link to="/customize-cat" class="about-link">🎨 Tùy chỉnh</router-link>
-        <a href="#" class="about-link">💬 Phản hồi</a>
-      </div>
-    </section>
-  </div>
+        <!-- Cat Status -->
+        <section class="cat-section">
+            <div class="cat-card">
+                <div class="cat-display">
+                    <div class="cat-avatar">🐱</div>
+                    <div class="cat-status">
+                        <h3>Bangocat is Happy! 😊</h3>
+                        <p>Keep up the good work! Your cat is leveling up.</p>
+                    </div>
+                </div>
+                <button
+                    class="play-btn"
+                    @click="$router.push('/customize-cat')"
+                >
+                    <span>🎨</span>
+                    Customize
+                </button>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'Dashboard'
-}
+    name: "Dashboard",
+    computed: {
+        timeOfDay() {
+            const hour = new Date().getHours();
+            if (hour < 12) return "morning";
+            if (hour < 18) return "afternoon";
+            return "evening";
+        },
+    },
+};
 </script>
 
 <style scoped>
-.dashboard-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2xl);
-  width: 100%;
+.dashboard-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
 }
 
-/* Hero Section */
-.hero-section {
-  background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-2xl);
-  color: #FFFFFF;
-  overflow: hidden;
+/* Welcome Section */
+.welcome-section {
+    background: linear-gradient(
+        135deg,
+        var(--ios-system-blue),
+        var(--ios-system-teal)
+    );
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    color: white;
+    position: relative;
+    overflow: hidden;
 }
 
-.hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-2xl);
-  align-items: center;
+.welcome-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
 }
 
-.hero-text {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
+.welcome-title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    margin: 0 0 var(--spacing-sm) 0;
+    letter-spacing: -0.5px;
 }
 
-.hero-title {
-  margin: 0;
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+.welcome-subtitle {
+    font-size: var(--font-size-lg);
+    margin: 0;
+    opacity: 0.9;
 }
 
-.hero-subtitle {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  line-height: 1.6;
-  opacity: 0.95;
+.welcome-mascot {
+    text-align: center;
 }
 
-.hero-buttons {
-  display: flex;
-  gap: var(--spacing-md);
+.mascot-animation {
+    font-size: 80px;
+    animation: bounce 2s ease-in-out infinite;
+    margin-bottom: var(--spacing-sm);
 }
 
-.btn-hero {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-  cursor: pointer;
-  border: none;
-  outline: none;
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
-.btn-hero.btn-primary {
-  background-color: #FFFFFF;
-  color: #007AFF;
+.mascot-message {
+    margin: 0;
+    font-weight: 600;
+    opacity: 0.9;
 }
 
-.btn-hero.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
 }
 
-.btn-hero.btn-secondary {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
+.stat-bubble {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
 }
 
-.btn-hero.btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
+.stat-icon {
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero-mascot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-md);
-  animation: floating 3s ease-in-out infinite;
+.stat-info {
+    flex: 1;
 }
 
-.mascot-emoji {
-  font-size: 120px;
-  margin: 0;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
-}
-
-.mascot-text {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  opacity: 0.95;
-}
-
-@keyframes floating {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-/* Features Section */
-.features-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xl);
-}
-
-.section-title {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  color: var(--text-color);
-  text-align: center;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--spacing-lg);
-}
-
-.feature-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  transition: all var(--transition-base);
-  cursor: pointer;
-}
-
-.feature-card:hover {
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-4px);
-}
-
-.feature-icon {
-  font-size: 40px;
-}
-
-.feature-card h3 {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-.feature-card p {
-  margin: 0;
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  line-height: 1.5;
-  flex: 1;
-}
-
-.feature-link {
-  display: inline-block;
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--primary-color);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-  align-self: flex-start;
-}
-
-.feature-link:hover {
-  color: #0051D5;
-}
-
-/* Stats Section */
-.stats-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-lg);
-}
-
-.stat-card {
-  background: linear-gradient(135deg, rgba(0, 122, 255, 0.1) 0%, rgba(90, 200, 250, 0.1) 100%);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  align-items: center;
-  justify-content: center;
-}
-
-.stat-number {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--primary-color);
+.stat-value {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
 }
 
 .stat-label {
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  font-weight: 500;
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
 }
 
-/* CTA Section */
-.cta-section {
-  background: linear-gradient(135deg, #F0F4FF 0%, #E8F1FF 100%);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-2xl);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  align-items: center;
+/* Section Styles */
+.section-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--ios-label-primary);
+    margin: 0 0 var(--spacing-lg) 0;
+    letter-spacing: -0.5px;
 }
 
-.cta-section h2 {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-  font-weight: 700;
-  color: var(--text-color);
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
 }
 
-.cta-section p {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  color: var(--text-secondary);
-  max-width: 500px;
+.see-all-btn {
+    background: none;
+    border: none;
+    color: var(--ios-system-blue);
+    font-weight: 600;
+    cursor: pointer;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
 }
 
-.btn-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md) var(--spacing-xl);
-  background-color: var(--primary-color);
-  color: #FFFFFF;
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-  border: none;
-  cursor: pointer;
+.see-all-btn:hover {
+    background: var(--ios-system-gray6);
 }
 
-.btn-cta:hover {
-  background-color: #0051D5;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+/* Quick Actions */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
 }
 
-/* About Section */
-.about-section {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
+.action-card {
+    background: var(--ios-background-primary);
+    border: 1px solid var(--ios-system-gray6);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    color: inherit;
 }
 
-.about-section h3 {
-  margin: 0 0 var(--spacing-md) 0;
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  color: var(--text-color);
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--ios-system-blue);
 }
 
-.about-section p {
-  margin: 0 0 var(--spacing-lg) 0;
-  font-size: var(--font-size-base);
-  color: var(--text-secondary);
-  line-height: 1.7;
+.action-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: var(--spacing-md);
 }
 
-.about-links {
-  display: flex;
-  gap: var(--spacing-md);
-  flex-wrap: wrap;
+.action-label {
+    display: block;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--ios-label-primary);
+    margin-bottom: var(--spacing-xs);
 }
 
-.about-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--background-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  transition: all var(--transition-fast);
+.action-desc {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--ios-label-secondary);
 }
 
-.about-link:hover {
-  background-color: var(--border-light);
-  color: var(--primary-color);
-  border-color: var(--primary-color);
+/* Activity List */
+.activity-list {
+    background: var(--ios-background-primary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--ios-system-gray6);
+    transition: background var(--transition-fast);
+}
+
+.activity-item:hover {
+    background: var(--ios-background-secondary);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    background: var(--ios-background-secondary);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-text {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-weight: 500;
+    color: var(--ios-label-primary);
+}
+
+.activity-time {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--ios-label-tertiary);
+}
+
+/* Goals Section */
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.goal-card {
+    background: var(--ios-background-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+}
+
+.goal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.goal-icon {
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    background: var(--ios-system-blue);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.goal-info {
+    flex: 1;
+}
+
+.goal-title {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--ios-label-primary);
+}
+
+.goal-progress {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--ios-label-secondary);
+}
+
+.progress-bar {
+    height: 6px;
+    background: var(--ios-system-gray6);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--ios-system-blue),
+        var(--ios-system-teal)
+    );
+    border-radius: 3px;
+    transition: width var(--transition-slow);
+}
+
+/* Cat Section */
+.cat-card {
+    background: linear-gradient(
+        135deg,
+        var(--ios-system-orange),
+        var(--ios-system-yellow)
+    );
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cat-display {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+}
+
+.cat-avatar {
+    font-size: 60px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.cat-status h3 {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+}
+
+.cat-status p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.play-btn {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.play-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-  }
-
-  .mascot-emoji {
-    font-size: 80px;
-  }
-
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-
 @media (max-width: 768px) {
-  .dashboard-container {
-    gap: var(--spacing-xl);
-  }
+    .welcome-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
 
-  .hero-section {
-    padding: var(--spacing-xl);
-  }
+    .quick-stats {
+        grid-template-columns: 1fr;
+    }
 
-  .hero-title {
-    font-size: 24px;
-  }
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
 
-  .hero-subtitle {
-    font-size: var(--font-size-base);
-  }
+    .goals-grid {
+        grid-template-columns: 1fr;
+    }
 
-  .hero-buttons {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-  }
+    .cat-card {
+        flex-direction: column;
+        gap: var(--spacing-xl);
+        text-align: center;
+    }
 
-  .btn-hero {
-    width: 100%;
-    padding: var(--spacing-md);
-  }
-
-  .mascot-emoji {
-    font-size: 60px;
-  }
-
-  .section-title {
-    font-size: var(--font-size-xl);
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stats-section {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .cta-section {
-    padding: var(--spacing-xl);
-  }
-
-  .cta-section h2 {
-    font-size: var(--font-size-xl);
-  }
-
-  .about-links {
-    flex-direction: column;
-  }
-
-  .about-link {
-    width: 100%;
-    justify-content: center;
-  }
+    .cat-display {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 </style>

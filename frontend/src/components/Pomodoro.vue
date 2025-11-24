@@ -1,803 +1,578 @@
 <template>
-  <div class="pomodoro-container">
-    <div class="card">
-      <!-- Header -->
-      <div class="card-header">
-        <div>
-          <h2>⏱️ Pomodoro Timer</h2>
-          <p class="card-description">Kỹ thuật Pomodoro để tăng năng suất</p>
+    <div class="pomodoro-page">
+        <div class="page-header">
+            <h1 class="page-title">Pomodoro Timer</h1>
+            <p class="page-subtitle">Focus on your tasks with timed sessions</p>
         </div>
-        <div class="session-badge">
-          <span class="badge-label">Session</span>
-          <span class="badge-value">{{ sessionCount }}</span>
-        </div>
-      </div>
 
-      <!-- Mode Selector -->
-      <div class="mode-selector">
-        <button 
-          v-for="mode in modes"
-          :key="mode.id"
-          class="mode-btn"
-          :class="{ active: currentMode === mode.id }"
-          @click="switchMode(mode.id, mode.duration)"
-        >
-          <span class="mode-icon">{{ mode.icon }}</span>
-          <span class="mode-name">{{ mode.name }}</span>
-        </button>
-      </div>
+        <div class="pomodoro-container">
+            <!-- Timer Card -->
+            <div class="timer-card">
+                <div class="timer-display">
+                    <div class="progress-ring">
+                        <svg viewBox="0 0 200 200">
+                            <circle
+                                class="progress-bg"
+                                cx="100"
+                                cy="100"
+                                r="90"
+                            />
+                            <circle
+                                class="progress-fill"
+                                cx="100"
+                                cy="100"
+                                r="90"
+                                :style="{ strokeDashoffset: progressOffset }"
+                            />
+                        </svg>
+                        <div class="timer-content">
+                            <div class="time-display">
+                                {{ formattedTime }}
+                            </div>
+                            <div class="timer-status">
+                                {{ currentMode.label }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-      <!-- Timer Display -->
-      <div class="timer-section">
-        <div class="progress-ring-container">
-          <svg class="progress-ring" viewBox="0 0 200 200">
-            <circle
-              class="progress-ring-bg"
-              cx="100"
-              cy="100"
-              r="90"
-            />
-            <circle
-              class="progress-ring-fill"
-              cx="100"
-              cy="100"
-              r="90"
-              :style="{ strokeDashoffset: ringOffset }"
-            />
-          </svg>
-          
-          <div class="timer-display">
-            <div class="timer-main">
-              <span class="timer-value">{{ mm }}</span>
-              <span class="timer-separator">:</span>
-              <span class="timer-value">{{ ss }}</span>
+                <!-- Mode Selector -->
+                <div class="mode-selector">
+                    <button
+                        v-for="mode in modes"
+                        :key="mode.id"
+                        class="mode-btn"
+                        :class="{ active: currentMode.id === mode.id }"
+                        @click="switchMode(mode)"
+                    >
+                        <span class="mode-icon">{{ mode.icon }}</span>
+                        <span class="mode-label">{{ mode.label }}</span>
+                        <span class="mode-duration">{{ mode.duration }}m</span>
+                    </button>
+                </div>
+
+                <!-- Controls -->
+                <div class="timer-controls">
+                    <button
+                        v-if="!isRunning"
+                        @click="startTimer"
+                        class="control-btn primary"
+                    >
+                        <span class="btn-icon">▶️</span>
+                        <span class="btn-label">Start</span>
+                    </button>
+
+                    <button
+                        v-else
+                        @click="pauseTimer"
+                        class="control-btn secondary"
+                    >
+                        <span class="btn-icon">⏸️</span>
+                        <span class="btn-label">Pause</span>
+                    </button>
+
+                    <button @click="resetTimer" class="control-btn tertiary">
+                        <span class="btn-icon">↻</span>
+                        <span class="btn-label">Reset</span>
+                    </button>
+                </div>
             </div>
-            <p class="timer-label">{{ timerLabel }}</p>
-          </div>
-        </div>
 
-        <!-- Timer Info -->
-        <div class="timer-info">
-          <div class="info-item">
-            <span class="info-label">Thời lượng</span>
-            <span class="info-value">{{ duration }} phút</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Trôi qua</span>
-            <span class="info-value">{{ elapsedTime }}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Còn lại</span>
-            <span class="info-value">{{ remainingTime }}</span>
-          </div>
-        </div>
-      </div>
+            <!-- Stats Card -->
+            <div class="stats-card">
+                <h3 class="card-title">Today's Progress</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-content">
+                            <div class="stat-value">75m</div>
+                            <div class="stat-label">Focused</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-content">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Streak</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Controls -->
-      <div class="controls-section">
-        <button 
-          v-if="!isRunning"
-          @click="start" 
-          class="btn-control btn-primary"
-        >
-          <span>▶</span>
-          Bắt đầu
-        </button>
-        <button 
-          v-else
-          @click="pause" 
-          class="btn-control btn-primary"
-        >
-          <span>⏸</span>
-          Tạm dừng
-        </button>
-        
-        <button 
-          @click="reset" 
-          class="btn-control btn-secondary"
-        >
-          <span>↺</span>
-          Reset
-        </button>
-
-        <button 
-          @click="skip" 
-          class="btn-control btn-tertiary"
-          :disabled="!isRunning && remaining === initialDuration * 60"
-        >
-          <span>⏭</span>
-          Bỏ qua
-        </button>
-      </div>
-
-      <!-- Custom Duration -->
-      <div class="custom-section">
-        <p class="section-title">Tùy chỉnh thời gian (phút)</p>
-        <div class="custom-controls">
-          <button @click="decreaseDuration" class="btn-adjust">−</button>
-          <input 
-            v-model.number="customDuration" 
-            type="number" 
-            min="1" 
-            max="60"
-            class="duration-input"
-            @change="updateDuration"
-          />
-          <button @click="increaseDuration" class="btn-adjust">+</button>
+            <!-- Quick Settings -->
+            <div class="settings-card">
+                <h3 class="card-title">Quick Settings</h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label class="setting-label">Auto-start breaks</label>
+                        <label class="ios-toggle">
+                            <input type="checkbox" v-model="autoStartBreaks" />
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Sound notifications</label>
+                        <label class="ios-toggle">
+                            <input type="checkbox" v-model="soundEnabled" />
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- Settings -->
-      <div class="settings-section">
-        <div class="setting-item">
-          <label class="setting-label">
-            <input 
-              type="checkbox" 
-              v-model="soundEnabled"
-              class="setting-checkbox"
-            />
-            <span>Âm thanh thông báo</span>
-          </label>
-        </div>
-        
-        <div class="setting-item">
-          <label class="setting-label">
-            <input 
-              type="checkbox" 
-              v-model="autoStart"
-              class="setting-checkbox"
-            />
-            <span>Tự động bắt đầu giờ nghỉ</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats-section">
-        <div class="stat-card">
-          <span class="stat-icon">✓</span>
-          <div class="stat-content">
-            <p class="stat-label">Session hoàn thành</p>
-            <p class="stat-value">{{ completedSessions }}</p>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <span class="stat-icon">⏱️</span>
-          <div class="stat-content">
-            <p class="stat-label">Tổng thời gian tập trung</p>
-            <p class="stat-value">{{ totalFocusTime }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tips -->
-      <div class="tips-box">
-        <p class="tips-text">💡 Mẹo: Một session Pomodoro gồm 25 phút tập trung + 5 phút nghỉ. Sau 4 session, hãy nghỉ 15 phút!</p>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  name: 'Pomodoro',
-  data() {
-    return {
-      remaining: 25 * 60,
-      initialDuration: 25,
-      duration: 25,
-      customDuration: 25,
-      timer: null,
-      isRunning: false,
-      currentMode: 'focus',
-      sessionCount: 0,
-      completedSessions: 0,
-      totalFocusMinutes: 0,
-      soundEnabled: true,
-      autoStart: false,
-      modes: [
-        { id: 'focus', name: 'Tập trung', icon: '🎯', duration: 25 },
-        { id: 'shortBreak', name: 'Nghỉ ngắn', icon: '☕', duration: 5 },
-        { id: 'longBreak', name: 'Nghỉ dài', icon: '🌟', duration: 15 }
-      ]
-    }
-  },
-  computed: {
-    mm() {
-      return String(Math.floor(this.remaining / 60)).padStart(2, '0')
+    name: "Pomodoro",
+    data() {
+        return {
+            timeLeft: 25 * 60,
+            isRunning: false,
+            currentMode: {
+                id: "focus",
+                label: "Focus Time",
+                icon: "🎯",
+                duration: 25,
+            },
+            modes: [
+                { id: "focus", label: "Focus", icon: "🎯", duration: 25 },
+                {
+                    id: "shortBreak",
+                    label: "Short Break",
+                    icon: "☕",
+                    duration: 5,
+                },
+                {
+                    id: "longBreak",
+                    label: "Long Break",
+                    icon: "🌴",
+                    duration: 15,
+                },
+            ],
+            autoStartBreaks: true,
+            soundEnabled: true,
+            timer: null,
+        };
     },
-    ss() {
-      return String(this.remaining % 60).padStart(2, '0')
+    computed: {
+        formattedTime() {
+            const minutes = Math.floor(this.timeLeft / 60);
+            const seconds = this.timeLeft % 60;
+            return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        },
+        progressOffset() {
+            const totalTime = this.currentMode.duration * 60;
+            const progress = (totalTime - this.timeLeft) / totalTime;
+            const circumference = 2 * Math.PI * 90;
+            return circumference * (1 - progress);
+        },
     },
-    timerLabel() {
-      const modeObj = this.modes.find(m => m.id === this.currentMode)
-      return modeObj ? modeObj.name : 'Pomodoro'
-    },
-    ringOffset() {
-      const circumference = 2 * Math.PI * 90
-      const progress = (this.initialDuration * 60 - this.remaining) / (this.initialDuration * 60)
-      return circumference * (1 - progress)
-    },
-    elapsedTime() {
-      const elapsed = this.initialDuration * 60 - this.remaining
-      const mins = Math.floor(elapsed / 60)
-      const secs = elapsed % 60
-      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
-    },
-    remainingTime() {
-      return `${String(Math.floor(this.remaining / 60)).padStart(2, '0')}:${String(this.remaining % 60).padStart(2, '0')}`
-    },
-    totalFocusTime() {
-      const mins = this.totalFocusMinutes
-      const hours = Math.floor(mins / 60)
-      const remainingMins = mins % 60
-      return hours > 0 ? `${hours}h ${remainingMins}m` : `${mins}m`
-    }
-  },
-  methods: {
-    start() {
-      if (this.isRunning) return
+    methods: {
+        startTimer() {
+            this.isRunning = true;
+            this.timer = setInterval(() => {
+                if (this.timeLeft > 0) {
+                    this.timeLeft--;
+                } else {
+                    this.timerComplete();
+                }
+            }, 1000);
+        },
+        pauseTimer() {
+            this.isRunning = false;
+            clearInterval(this.timer);
+        },
+        resetTimer() {
+            this.pauseTimer();
+            this.timeLeft = this.currentMode.duration * 60;
+        },
+        switchMode(mode) {
+            this.pauseTimer();
+            this.currentMode = mode;
+            this.timeLeft = mode.duration * 60;
+        },
+        timerComplete() {
+            this.pauseTimer();
+            if (this.soundEnabled) {
+                this.playCompletionSound();
+            }
+            // Auto-start next mode if enabled
+            if (this.autoStartBreaks && this.currentMode.id === "focus") {
+                setTimeout(() => {
+                    this.switchMode(this.modes[1]); // Switch to short break
+                    this.startTimer();
+                }, 1000);
+            }
+        },
+        playCompletionSound() {
+            // Simple completion sound
+            const audioContext = new (window.AudioContext ||
+                window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
 
-      this.isRunning = true
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
 
-      this.timer = setInterval(() => {
-        if (this.remaining > 0) {
-          this.remaining--
-        } else {
-          this.timerComplete()
-        }
-      }, 1000)
-    },
-    pause() {
-      clearInterval(this.timer)
-      this.timer = null
-      this.isRunning = false
-    },
-    reset() {
-      this.pause()
-      this.remaining = this.initialDuration * 60
-    },
-    skip() {
-      this.pause()
-      this.timerComplete()
-    },
-    timerComplete() {
-      this.pause()
+            oscillator.frequency.value = 800;
+            oscillator.type = "sine";
 
-      if (this.soundEnabled) {
-        this.playSound()
-      }
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(
+                0.01,
+                audioContext.currentTime + 0.5,
+            );
 
-      if (this.currentMode === 'focus') {
-        this.completedSessions++
-        this.sessionCount++
-        this.totalFocusMinutes += this.initialDuration
-      }
-
-      // Auto switch mode
-      if (this.autoStart) {
-        if (this.currentMode === 'focus') {
-          this.sessionCount % 4 === 0
-            ? this.switchMode('longBreak', 15)
-            : this.switchMode('shortBreak', 5)
-        } else {
-          this.switchMode('focus', 25)
-        }
-        setTimeout(() => this.start(), 500)
-      }
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        },
     },
-    switchMode(modeId, duration) {
-      this.pause()
-      this.currentMode = modeId
-      this.initialDuration = duration
-      this.duration = duration
-      this.customDuration = duration
-      this.remaining = duration * 60
+    beforeUnmount() {
+        this.pauseTimer();
     },
-    increaseDuration() {
-      if (this.customDuration < 60) {
-        this.customDuration++
-        this.updateDuration()
-      }
-    },
-    decreaseDuration() {
-      if (this.customDuration > 1) {
-        this.customDuration--
-        this.updateDuration()
-      }
-    },
-    updateDuration() {
-      if (!this.isRunning) {
-        this.initialDuration = this.customDuration
-        this.duration = this.customDuration
-        this.remaining = this.customDuration * 60
-      }
-    },
-    playSound() {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-      const oscillator = audioContext.createOscillator()
-      const gainNode = audioContext.createGain()
-
-      oscillator.connect(gainNode)
-      gainNode.connect(audioContext.destination)
-
-      oscillator.frequency.value = 800
-      oscillator.type = 'sine'
-
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5)
-
-      oscillator.start(audioContext.currentTime)
-      oscillator.stop(audioContext.currentTime + 0.5)
-    }
-  },
-  beforeUnmount() {
-    if (this.timer) clearInterval(this.timer)
-  }
-}
+};
 </script>
 
 <style scoped>
+.pomodoro-page {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.page-title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--ios-label-primary);
+    margin: 0 0 var(--spacing-sm) 0;
+    letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--ios-label-secondary);
+    margin: 0;
+}
+
 .pomodoro-container {
-  width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: start;
 }
 
-.card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-sm);
+/* Timer Card */
+.timer-card {
+    background: var(--ios-background-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-md);
+    grid-column: 1;
 }
 
-/* Header */
-.card-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-lg);
-  border-bottom: 1px solid var(--border-color);
+.timer-display {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-2xl);
 }
 
-.card-header h2 {
-  margin: 0 0 var(--spacing-xs) 0;
+.progress-ring {
+    position: relative;
+    width: 300px;
+    height: 300px;
 }
 
-.card-description {
-  margin: 0;
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
+.progress-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
 }
 
-.session-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-md) var(--spacing-lg);
-  background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
-  color: #FFFFFF;
-  border-radius: var(--radius-md);
+.progress-bg {
+    fill: none;
+    stroke: var(--ios-system-gray6);
+    stroke-width: 8;
 }
 
-.badge-label {
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  opacity: 0.9;
+.progress-fill {
+    fill: none;
+    stroke: var(--ios-system-blue);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 565.48;
+    transition: stroke-dashoffset 0.5s ease;
 }
 
-.badge-value {
-  font-size: 24px;
-  font-weight: 700;
+.timer-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.time-display {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--ios-label-primary);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    margin-bottom: var(--spacing-sm);
+}
+
+.timer-status {
+    font-size: var(--font-size-lg);
+    color: var(--ios-label-secondary);
+    font-weight: 600;
 }
 
 /* Mode Selector */
 .mode-selector {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-xl);
-  background-color: var(--background-secondary);
-  padding: var(--spacing-sm);
-  border-radius: var(--radius-md);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
 }
 
 .mode-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md);
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  outline: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    background: var(--ios-background-secondary);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
 }
 
 .mode-btn:hover {
-  background-color: var(--card-bg);
+    background: var(--ios-system-gray6);
 }
 
 .mode-btn.active {
-  background-color: var(--card-bg);
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+    background: var(--ios-system-blue);
+    border-color: var(--ios-system-blue);
+    color: white;
 }
 
 .mode-icon {
-  font-size: 20px;
+    font-size: 24px;
 }
 
-.mode-name {
-  font-size: var(--font-size-xs);
-  font-weight: 600;
+.mode-label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
 }
 
-/* Timer Section */
-.timer-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-xl);
-  margin-bottom: var(--spacing-xl);
-}
-
-.progress-ring-container {
-  position: relative;
-  width: 240px;
-  height: 240px;
-}
-
-.progress-ring {
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-
-.progress-ring-bg {
-  fill: none;
-  stroke: var(--border-light);
-  stroke-width: 6;
-}
-
-.progress-ring-fill {
-  fill: none;
-  stroke: var(--primary-color);
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-dasharray: 565.48;
-  transition: stroke-dashoffset 0.5s ease;
-}
-
-.timer-display {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.timer-main {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.timer-value {
-  font-size: 60px;
-  font-weight: 700;
-  color: var(--text-color);
-  line-height: 1;
-}
-
-.timer-separator {
-  font-size: 60px;
-  font-weight: 700;
-  color: var(--text-tertiary);
-  line-height: 1;
-  margin: 0 var(--spacing-sm);
-  animation: blink 1s ease-in-out infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.timer-label {
-  margin: 0;
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-/* Timer Info */
-.timer-info {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-md);
-  width: 100%;
-}
-
-.info-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-md);
-  background-color: var(--background-secondary);
-  border-radius: var(--radius-md);
-}
-
-.info-label {
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.info-value {
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  color: var(--primary-color);
+.mode-duration {
+    font-size: var(--font-size-xs);
+    opacity: 0.8;
 }
 
 /* Controls */
-.controls-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
+.timer-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
 }
 
-.btn-control {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md) var(--spacing-lg);
-  border: none;
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  outline: none;
+.control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
 }
 
-.btn-control:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.control-btn.primary {
+    background: var(--ios-system-blue);
+    color: white;
+    grid-column: 1 / -1;
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: #FFFFFF;
+.control-btn.primary:hover {
+    background: #0056cc;
 }
 
-.btn-primary:hover:not(:disabled) {
-  background-color: #0051D5;
+.control-btn.secondary {
+    background: var(--ios-system-orange);
+    color: white;
 }
 
-.btn-secondary {
-  background-color: var(--background-secondary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
+.control-btn.tertiary {
+    background: var(--ios-background-secondary);
+    color: var(--ios-label-primary);
 }
 
-.btn-secondary:hover:not(:disabled) {
-  background-color: var(--border-light);
-  color: var(--text-color);
+.control-btn.secondary:hover,
+.control-btn.tertiary:hover {
+    transform: translateY(-2px);
 }
 
-.btn-tertiary {
-  background-color: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
+/* Stats Card */
+.stats-card,
+.settings-card {
+    background: var(--ios-background-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
 }
 
-.btn-tertiary:hover:not(:disabled) {
-  background-color: var(--background-secondary);
-  color: var(--primary-color);
-  border-color: var(--primary-color);
+.card-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--ios-label-primary);
+    margin: 0 0 var(--spacing-lg) 0;
 }
 
-/* Custom Duration */
-.custom-section {
-  padding: var(--spacing-lg);
-  background-color: var(--background-secondary);
-  border-radius: var(--radius-lg);
-  margin-bottom: var(--spacing-lg);
+.stats-grid {
+    display: grid;
+    gap: var(--spacing-md);
 }
 
-.section-title {
-  margin: 0 0 var(--spacing-md) 0;
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.custom-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-md);
-}
-
-.btn-adjust {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  font-size: 20px;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  outline: none;
-}
-
-.btn-adjust:hover {
-  background-color: var(--primary-color);
-  color: #FFFFFF;
-  border-color: var(--primary-color);
-}
-
-.duration-input {
-  width: 80px;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  text-align: center;
-  color: var(--primary-color);
-  outline: none;
-  transition: all var(--transition-fast);
-}
-
-.duration-input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
-}
-
-/* Settings */
-.settings-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-lg);
-  background-color: var(--background-secondary);
-  border-radius: var(--radius-lg);
-}
-
-.setting-item {
-  display: flex;
-  align-items: center;
-}
-
-.setting-label {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  color: var(--text-color);
-  cursor: pointer;
-  user-select: none;
-}
-
-.setting-checkbox {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  accent-color: var(--primary-color);
-}
-
-/* Stats */
-.stats-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-}
-
-.stat-card {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg);
-  background: linear-gradient(135deg, #F0F4FF 0%, #E8F1FF 100%);
-  border: 1px solid rgba(0, 122, 255, 0.2);
-  border-radius: var(--radius-lg);
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--ios-background-secondary);
+    border-radius: var(--radius-lg);
 }
 
 .stat-icon {
-  font-size: 32px;
-  flex-shrink: 0;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    background: var(--ios-system-blue);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .stat-content {
-  flex: 1;
-}
-
-.stat-label {
-  margin: 0;
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+    flex: 1;
 }
 
 .stat-value {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  color: var(--primary-color);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--ios-label-primary);
+    margin-bottom: var(--spacing-xs);
 }
 
-/* Tips */
-.tips-box {
-  padding: var(--spacing-md) var(--spacing-lg);
-  background-color: rgba(0, 122, 255, 0.05);
-  border: 1px solid rgba(0, 122, 255, 0.2);
-  border-radius: var(--radius-md);
+.stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--ios-label-secondary);
 }
 
-.tips-text {
-  margin: 0;
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  line-height: 1.6;
+/* Settings */
+.settings-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.setting-label {
+    font-size: var(--font-size-base);
+    color: var(--ios-label-primary);
+    font-weight: 500;
+}
+
+/* iOS Toggle */
+.ios-toggle {
+    position: relative;
+    display: inline-block;
+    width: 51px;
+    height: 31px;
+}
+
+.ios-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--ios-system-gray4);
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 27px;
+    width: 27px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--ios-system-blue);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(20px);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .card {
-    padding: var(--spacing-md);
-  }
+    .pomodoro-container {
+        grid-template-columns: 1fr;
+    }
 
-  .progress-ring-container {
-    width: 180px;
-    height: 180px;
-  }
+    .progress-ring {
+        width: 250px;
+        height: 250px;
+    }
 
-  .timer-value {
-    font-size: 48px;
-  }
+    .time-display {
+        font-size: 48px;
+    }
 
-  .timer-separator {
-    font-size: 48px;
-  }
+    .mode-selector {
+        grid-template-columns: 1fr;
+    }
 
-  .timer-info {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-sm);
-  }
-
-  .controls-section {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .stats-section {
-    grid-template-columns: 1fr;
-  }
+    .timer-controls {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
