@@ -486,34 +486,34 @@ Thống kê:
 <style scoped>
 .roadmap-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .card {
     background-color: var(--ios-background-primary);
     border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-2xl);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--ios-system-gray5);
 }
 
 /* Header */
 .card-header {
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-xl);
     border-bottom: 1px solid var(--ios-system-gray5);
 }
 
 .header-content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
 }
 
 .card-title {
     margin: 0;
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-3xl);
     font-weight: 700;
     color: var(--ios-label-primary);
     font-family: var(--font-family);
@@ -521,18 +521,18 @@ Thống kê:
 
 .card-description {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 /* Input Section */
 .input-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
-    padding: var(--spacing-lg);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
@@ -561,6 +561,7 @@ Thống kê:
     border-radius: var(--radius-md);
     padding: 0 var(--spacing-sm);
     transition: all var(--transition-base);
+    height: 60px;
 }
 
 .input-wrapper:focus-within {
@@ -569,12 +570,12 @@ Thống kê:
 }
 
 .btn-stepper {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     background: none;
     border: none;
     color: var(--ios-label-tertiary);
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     transition: all var(--transition-base);
     outline: none;
@@ -602,12 +603,13 @@ Thống kê:
     flex: 1;
     border: none;
     background: transparent;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
     font-weight: 700;
     color: var(--ios-label-primary);
     text-align: center;
     outline: none;
     padding: var(--spacing-sm) 0;
+    min-width: 0;
 }
 
 .number-input::-webkit-outer-spin-button,
@@ -619,16 +621,16 @@ Thống kê:
 /* Summary Section */
 .summary-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
 }
 
 .summary-card {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
@@ -664,7 +666,7 @@ Thống kê:
 }
 
 .summary-icon {
-    font-size: 24px;
+    font-size: 32px;
     flex-shrink: 0;
 }
 
@@ -687,7 +689,7 @@ Thống kê:
 
 .summary-value {
     margin: 0;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-2xl);
     font-weight: 700;
     color: var(--ios-system-blue);
     line-height: 1;
@@ -696,8 +698,8 @@ Thống kê:
 /* Action Buttons */
 .action-buttons {
     display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
 }
 
 .btn-primary,
@@ -707,10 +709,10 @@ Thống kê:
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     font-size: var(--font-size-base);
     font-weight: 600;
     cursor: pointer;
@@ -718,6 +720,7 @@ Thống kê:
     outline: none;
     position: relative;
     overflow: hidden;
+    min-height: 60px;
 }
 
 .btn-primary::before,
@@ -751,7 +754,8 @@ Thống kê:
 
 .btn-primary:hover {
     background-color: #0056cc;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .btn-secondary {
@@ -761,7 +765,8 @@ Thống kê:
 
 .btn-secondary:hover:not(:disabled) {
     background-color: #30b456;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .btn-secondary:disabled {
@@ -772,14 +777,14 @@ Thống kê:
 .btn-outline {
     background-color: transparent;
     color: var(--ios-label-secondary);
-    border: 1px solid var(--ios-system-gray4);
+    border: 2px solid var(--ios-system-gray4);
 }
 
 .btn-outline:hover:not(:disabled) {
     background-color: var(--ios-background-secondary);
     border-color: var(--ios-system-gray3);
     color: var(--ios-label-primary);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
 .btn-outline:disabled {
@@ -788,7 +793,7 @@ Thống kê:
 }
 
 .btn-icon {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .btn-text {
@@ -801,31 +806,33 @@ Thống kê:
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-3xl) var(--spacing-xl);
     text-align: center;
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border: 2px dashed var(--ios-system-gray5);
+    min-height: 300px;
 }
 
 .empty-icon {
-    font-size: 48px;
-    margin: 0 0 var(--spacing-lg) 0;
+    font-size: 64px;
+    margin: 0 0 var(--spacing-xl) 0;
     opacity: 0.5;
 }
 
 .empty-title {
-    margin: 0 0 var(--spacing-sm) 0;
-    font-size: var(--font-size-lg);
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--ios-label-primary);
 }
 
 .empty-description {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
     line-height: 1.5;
+    max-width: 400px;
 }
 
 /* Timeline Section */
@@ -839,28 +846,29 @@ Thống kê:
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
 }
 
 .section-title {
     margin: 0;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
     font-weight: 700;
     color: var(--ios-label-primary);
 }
 
 .section-badge {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--ios-system-blue);
     background-color: rgba(0, 122, 255, 0.1);
-    padding: var(--spacing-xs) var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: var(--radius-full);
 }
 
 /* Timeline Container */
 .timeline-container {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
@@ -870,7 +878,7 @@ Thống kê:
     display: flex;
     justify-content: space-between;
     margin-bottom: var(--spacing-lg);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: 600;
     color: var(--ios-label-secondary);
 }
@@ -883,14 +891,14 @@ Thống kê:
 .timeline-items {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
 }
 
 .timeline-item {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-primary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
@@ -922,7 +930,7 @@ Thống kê:
 .timeline-item:hover {
     border-color: var(--ios-system-gray4);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
 }
 
 .focus-slot {
@@ -936,11 +944,11 @@ Thống kê:
 .item-content {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
 }
 
 .item-icon {
-    font-size: 20px;
+    font-size: 24px;
     flex-shrink: 0;
 }
 
@@ -953,31 +961,31 @@ Thống kê:
 
 .item-type {
     margin: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-primary);
 }
 
 .item-duration {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
     font-family: "Monaco", "Courier New", monospace;
 }
 
 .item-index {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: 600;
     color: var(--ios-label-tertiary);
     background-color: var(--ios-system-gray6);
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--radius-full);
 }
 
 .item-progress {
-    height: 4px;
+    height: 6px;
     background-color: var(--ios-system-blue);
-    border-radius: 2px;
+    border-radius: 3px;
     min-width: 20px;
     transition: width var(--transition-base);
 }
@@ -990,20 +998,20 @@ Thống kê:
 .milestones-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
 }
 
 .milestones-list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
 }
 
 .milestone-item {
     display: flex;
     align-items: center;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border-left: 4px solid var(--ios-system-green);
@@ -1019,15 +1027,15 @@ Thống kê:
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     background-color: rgba(52, 199, 89, 0.1);
     border-radius: 50%;
     flex-shrink: 0;
 }
 
 .marker-time {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 700;
     color: var(--ios-system-green);
     font-family: "Monaco", "Courier New", monospace;
@@ -1035,7 +1043,7 @@ Thống kê:
 
 .milestone-text {
     margin: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-primary);
     line-height: 1.4;
@@ -1045,20 +1053,20 @@ Thống kê:
 .stats-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
 }
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
 }
 
 .stat-card {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
@@ -1067,11 +1075,12 @@ Thống kê:
 
 .stat-card:hover {
     border-color: var(--ios-system-gray4);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .stat-icon {
-    font-size: 24px;
+    font-size: 32px;
     flex-shrink: 0;
 }
 
@@ -1093,7 +1102,7 @@ Thống kê:
 
 .stat-value {
     margin: 0;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-2xl);
     font-weight: 700;
     color: var(--ios-label-primary);
     line-height: 1;
@@ -1102,14 +1111,14 @@ Thống kê:
 .stat-percentage,
 .stat-text {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
     font-weight: 600;
 }
 
 /* Tips Section */
 .tips-section {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background: linear-gradient(
         135deg,
         rgba(0, 122, 255, 0.05) 0%,
@@ -1122,17 +1131,17 @@ Thống kê:
 .tips-header {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
 .tips-icon {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .tips-title {
     margin: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-primary);
 }
@@ -1142,16 +1151,16 @@ Thống kê:
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
     list-style: none;
 }
 
 .tip-item {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
     line-height: 1.6;
-    padding-left: var(--spacing-lg);
+    padding-left: var(--spacing-xl);
     position: relative;
 }
 
@@ -1161,6 +1170,7 @@ Thống kê:
     left: 0;
     color: var(--ios-system-blue);
     font-weight: 700;
+    font-size: var(--font-size-lg);
 }
 
 /* Export Button */
@@ -1168,9 +1178,9 @@ Thống kê:
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
     width: 100%;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-system-blue);
     color: white;
     border: none;
@@ -1182,6 +1192,7 @@ Thống kê:
     outline: none;
     position: relative;
     overflow: hidden;
+    min-height: 60px;
 }
 
 .export-btn::before {
@@ -1210,25 +1221,38 @@ Thống kê:
     box-shadow: var(--shadow-md);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsive Design - Desktop First */
+@media (max-width: 1024px) {
     .roadmap-container {
-        max-width: 100%;
-    }
-
-    .card {
-        padding: var(--spacing-md);
-        border-radius: var(--radius-md);
+        max-width: 90%;
     }
 
     .input-section {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-        padding: var(--spacing-md);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .summary-section {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .roadmap-container {
+        max-width: 95%;
+    }
+
+    .card {
+        padding: var(--spacing-xl);
+    }
+
+    .input-section {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-lg);
+    }
+
+    .summary-section {
+        grid-template-columns: 1fr;
     }
 
     .action-buttons {
@@ -1242,28 +1266,28 @@ Thống kê:
     .milestone-item {
         flex-direction: column;
         text-align: center;
-        gap: var(--spacing-md);
+        gap: var(--spacing-lg);
     }
 
     .milestone-marker {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
     }
 
     .item-content {
         flex-direction: column;
         text-align: center;
-        gap: var(--spacing-sm);
+        gap: var(--spacing-md);
     }
 }
 
 @media (max-width: 480px) {
-    .summary-section {
-        grid-template-columns: 1fr;
+    .card {
+        padding: var(--spacing-lg);
     }
 
     .timeline-item {
-        padding: var(--spacing-md);
+        padding: var(--spacing-lg);
     }
 }
 

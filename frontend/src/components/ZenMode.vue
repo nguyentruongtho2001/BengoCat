@@ -480,34 +480,34 @@ export default {
 <style scoped>
 .zenmode-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .card {
     background-color: var(--ios-background-primary);
     border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-2xl);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--ios-system-gray5);
 }
 
 /* Header */
 .card-header {
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-xl);
     border-bottom: 1px solid var(--ios-system-gray5);
 }
 
 .header-content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
 }
 
 .card-title {
     margin: 0;
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-3xl);
     font-weight: 700;
     color: var(--ios-label-primary);
     font-family: var(--font-family);
@@ -515,30 +515,30 @@ export default {
 
 .card-description {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 /* Active Badge */
 .active-badge {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-lg);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-xl);
     background-color: rgba(52, 199, 89, 0.1);
     border: 1px solid var(--ios-system-green);
     border-radius: var(--radius-full);
     color: var(--ios-system-green);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
 }
 
 .pulse-dot {
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background-color: var(--ios-system-green);
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
@@ -571,8 +571,8 @@ export default {
 .settings-group {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
@@ -580,7 +580,7 @@ export default {
 
 .group-title {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 700;
     color: var(--ios-label-secondary);
     text-transform: uppercase;
@@ -592,10 +592,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-md);
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg);
     background-color: var(--ios-background-primary);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
     transition: all var(--transition-base);
     position: relative;
@@ -624,19 +624,20 @@ export default {
 
 .setting-item:hover {
     border-color: var(--ios-system-gray4);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .setting-content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
     flex: 1;
 }
 
 .setting-label {
     margin: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-primary);
     cursor: pointer;
@@ -644,9 +645,9 @@ export default {
 
 .setting-description {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 /* iOS Toggle */
@@ -663,10 +664,10 @@ export default {
 
 .toggle-track {
     position: relative;
-    width: 52px;
-    height: 32px;
+    width: 60px;
+    height: 34px;
     background-color: var(--ios-system-gray4);
-    border-radius: 16px;
+    border-radius: 17px;
     transition: all var(--transition-base);
     flex-shrink: 0;
 }
@@ -674,8 +675,8 @@ export default {
 .toggle-track::before {
     content: "";
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: white;
     top: 2px;
@@ -689,28 +690,28 @@ export default {
 }
 
 .toggle-input:checked + .toggle-track::before {
-    transform: translateX(20px);
+    transform: translateX(26px);
 }
 
 /* Slider */
 .slider-wrapper {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
     flex: 1;
-    max-width: 200px;
+    max-width: 300px;
 }
 
 .slider-icon {
-    font-size: 16px;
+    font-size: 20px;
     color: var(--ios-label-tertiary);
     flex-shrink: 0;
 }
 
 .ios-slider {
     flex: 1;
-    height: 6px;
-    border-radius: 3px;
+    height: 8px;
+    border-radius: 4px;
     background: linear-gradient(
         to right,
         var(--ios-system-blue) 0%,
@@ -728,8 +729,8 @@ export default {
 .ios-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--ios-system-blue);
     cursor: pointer;
@@ -744,8 +745,8 @@ export default {
 }
 
 .ios-slider::-moz-range-thumb {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--ios-system-blue);
     cursor: pointer;
@@ -758,10 +759,10 @@ export default {
 .volume-control {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
     background-color: var(--ios-background-primary);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
 }
 
@@ -773,7 +774,7 @@ export default {
 
 .volume-label {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--ios-label-secondary);
     text-transform: uppercase;
@@ -781,7 +782,7 @@ export default {
 }
 
 .volume-value {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-lg);
     font-weight: 700;
     color: var(--ios-system-blue);
 }
@@ -789,8 +790,8 @@ export default {
 /* Sounds Grid */
 .sounds-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
 }
 
 .sound-btn {
@@ -798,8 +799,8 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-primary);
     border: 2px solid var(--ios-system-gray5);
     border-radius: var(--radius-lg);
@@ -808,6 +809,7 @@ export default {
     outline: none;
     position: relative;
     overflow: hidden;
+    min-height: 120px;
 }
 
 .sound-btn::before {
@@ -833,6 +835,7 @@ export default {
 .sound-btn:hover {
     border-color: var(--ios-system-gray4);
     transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .sound-btn.active {
@@ -842,11 +845,11 @@ export default {
 }
 
 .sound-icon {
-    font-size: 28px;
+    font-size: 32px;
 }
 
 .sound-name {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--ios-label-primary);
     text-align: center;
@@ -855,33 +858,37 @@ export default {
 /* Duration Selector */
 .duration-selector {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
     flex-wrap: wrap;
 }
 
 .duration-btn {
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
     background-color: var(--ios-background-primary);
     border: 1px solid var(--ios-system-gray5);
     border-radius: var(--radius-md);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--ios-label-secondary);
     cursor: pointer;
     transition: all var(--transition-base);
     outline: none;
+    min-width: 70px;
 }
 
 .duration-btn:hover {
     background-color: var(--ios-background-secondary);
     border-color: var(--ios-system-blue);
     color: var(--ios-system-blue);
+    transform: translateY(-1px);
 }
 
 .duration-btn.active {
     background-color: var(--ios-system-blue);
     border-color: var(--ios-system-blue);
     color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Start Button */
@@ -889,20 +896,21 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
     width: 100%;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-system-blue);
     color: white;
     border: none;
     border-radius: var(--radius-lg);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-base);
     outline: none;
     position: relative;
     overflow: hidden;
+    min-height: 70px;
 }
 
 .btn-primary::before {
@@ -932,7 +940,7 @@ export default {
 }
 
 .btn-icon {
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .btn-text {
@@ -945,15 +953,15 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-2xl);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-2xl);
     text-align: center;
 }
 
 /* Timer Container */
 .timer-container {
     position: relative;
-    width: 240px;
-    height: 240px;
+    width: 300px;
+    height: 300px;
     margin: var(--spacing-xl) 0;
 }
 
@@ -972,13 +980,13 @@ export default {
 .timer-bg {
     fill: none;
     stroke: var(--ios-system-gray5);
-    stroke-width: 6;
+    stroke-width: 8;
 }
 
 .timer-fill {
     fill: none;
     stroke: var(--ios-system-blue);
-    stroke-width: 6;
+    stroke-width: 8;
     stroke-linecap: round;
     stroke-dasharray: 565.48;
     stroke-dashoffset: calc(565.48 * (1 - var(--progress, 0)));
@@ -997,11 +1005,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
 }
 
 .timer-value {
-    font-size: 60px;
+    font-size: 72px;
     font-weight: 700;
     color: var(--ios-label-primary);
     line-height: 1;
@@ -1010,7 +1018,7 @@ export default {
 }
 
 .timer-label {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-secondary);
 }
@@ -1020,12 +1028,12 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
 }
 
 .breath-circle {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     background: linear-gradient(
         135deg,
@@ -1041,8 +1049,8 @@ export default {
 }
 
 .breath-inner {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
@@ -1067,13 +1075,13 @@ export default {
         box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.4);
     }
     50% {
-        box-shadow: 0 0 0 20px rgba(0, 122, 255, 0);
+        box-shadow: 0 0 0 25px rgba(0, 122, 255, 0);
     }
 }
 
 .breath-instruction {
     margin: 0;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--ios-label-primary);
 }
@@ -1083,20 +1091,20 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
 }
 
 .ambient-icon {
-    font-size: 32px;
+    font-size: 40px;
 }
 
 .ambient-text {
     margin: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-secondary);
 }
@@ -1104,9 +1112,9 @@ export default {
 /* Zen Controls */
 .zen-controls {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
 }
 
 .btn-control {
@@ -1114,10 +1122,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     font-size: var(--font-size-base);
     font-weight: 600;
     cursor: pointer;
@@ -1125,6 +1133,7 @@ export default {
     outline: none;
     position: relative;
     overflow: hidden;
+    min-height: 60px;
 }
 
 .btn-control::before {
@@ -1157,7 +1166,8 @@ export default {
     background-color: var(--ios-background-primary);
     border-color: var(--ios-system-blue);
     color: var(--ios-system-blue);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-control.paused {
@@ -1173,11 +1183,12 @@ export default {
 
 .btn-exit:hover {
     background-color: #d70015;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .control-icon {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .control-text {
@@ -1188,34 +1199,34 @@ export default {
 .zen-info {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
     flex-wrap: wrap;
 }
 
 .info-item {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
     background-color: var(--ios-background-secondary);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
 }
 
 .info-icon {
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .info-text {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
     font-weight: 600;
 }
 
 /* Tips Section */
 .tips-section {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background: linear-gradient(
         135deg,
         rgba(0, 122, 255, 0.05) 0%,
@@ -1228,17 +1239,17 @@ export default {
 .tips-header {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
 .tips-icon {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .tips-title {
     margin: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-primary);
 }
@@ -1248,16 +1259,16 @@ export default {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
     list-style: none;
 }
 
 .tip-item {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
     line-height: 1.6;
-    padding-left: var(--spacing-lg);
+    padding-left: var(--spacing-xl);
     position: relative;
 }
 
@@ -1267,21 +1278,31 @@ export default {
     left: 0;
     color: var(--ios-system-blue);
     font-weight: 700;
+    font-size: var(--font-size-lg);
 }
 
-/* Responsive Design */
+/* Responsive Design - Desktop First */
+@media (max-width: 1024px) {
+    .zenmode-container {
+        max-width: 90%;
+    }
+
+    .sounds-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .zenmode-container {
-        max-width: 100%;
+        max-width: 95%;
     }
 
     .card {
-        padding: var(--spacing-md);
-        border-radius: var(--radius-md);
+        padding: var(--spacing-xl);
     }
 
     .settings-group {
-        padding: var(--spacing-md);
+        padding: var(--spacing-lg);
     }
 
     .sounds-grid {
@@ -1289,17 +1310,17 @@ export default {
     }
 
     .zen-display {
-        gap: var(--spacing-lg);
-        padding: var(--spacing-lg);
+        gap: var(--spacing-xl);
+        padding: var(--spacing-xl);
     }
 
     .timer-container {
-        width: 180px;
-        height: 180px;
+        width: 240px;
+        height: 240px;
     }
 
     .timer-value {
-        font-size: 48px;
+        font-size: 60px;
     }
 
     .zen-controls {
@@ -1307,11 +1328,15 @@ export default {
     }
 
     .zen-info {
-        gap: var(--spacing-md);
+        gap: var(--spacing-lg);
     }
 }
 
 @media (max-width: 480px) {
+    .card {
+        padding: var(--spacing-lg);
+    }
+
     .sounds-grid {
         grid-template-columns: repeat(2, 1fr);
     }

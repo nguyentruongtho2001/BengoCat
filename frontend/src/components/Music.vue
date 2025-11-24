@@ -266,14 +266,14 @@ export default {
 <style scoped>
 .music-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .card {
     background-color: var(--ios-background-primary);
     border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-2xl);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--ios-system-gray5);
 }
@@ -283,9 +283,9 @@ export default {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-xl);
     border-bottom: 1px solid var(--ios-system-gray5);
 }
 
@@ -294,8 +294,8 @@ export default {
 }
 
 .card-title {
-    margin: 0 0 var(--spacing-xs) 0;
-    font-size: var(--font-size-2xl);
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-3xl);
     font-weight: 700;
     color: var(--ios-label-primary);
     font-family: var(--font-family);
@@ -303,28 +303,30 @@ export default {
 
 .card-description {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .now-playing {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
     background-color: rgba(52, 199, 89, 0.1);
     border-radius: var(--radius-full);
     color: var(--ios-system-green);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
     white-space: nowrap;
+    min-width: 140px;
+    justify-content: center;
 }
 
 .pulse-dot {
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background-color: var(--ios-system-green);
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
@@ -342,19 +344,23 @@ export default {
     }
 }
 
+.playing-text {
+    font-weight: 600;
+}
+
 /* Player Section */
 .player-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-2xl);
     margin-bottom: var(--spacing-2xl);
 }
 
 .player-card {
     display: flex;
     align-items: center;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl);
     background: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--ios-system-gray5);
@@ -364,21 +370,22 @@ export default {
 .player-card:hover {
     border-color: var(--ios-system-gray4);
     box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
 }
 
 .player-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background: linear-gradient(
         135deg,
         var(--ios-system-blue),
         var(--ios-system-teal)
     );
     border-radius: var(--radius-lg);
-    font-size: 28px;
+    font-size: 32px;
     flex-shrink: 0;
 }
 
@@ -405,8 +412,8 @@ export default {
 }
 
 .player-title {
-    margin: 0 0 var(--spacing-xs) 0;
-    font-size: var(--font-size-lg);
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--ios-label-primary);
     overflow: hidden;
@@ -416,7 +423,7 @@ export default {
 
 .player-description {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
 }
 
@@ -424,13 +431,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
+    width: 70px;
+    height: 70px;
     background: var(--ios-system-blue);
     color: white;
     border: none;
     border-radius: var(--radius-full);
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
     transition: all var(--transition-base);
     flex-shrink: 0;
@@ -478,7 +485,7 @@ export default {
         box-shadow: 0 0 0 0 rgba(255, 149, 0, 0.4);
     }
     50% {
-        box-shadow: 0 0 0 8px rgba(255, 149, 0, 0);
+        box-shadow: 0 0 0 12px rgba(255, 149, 0, 0);
     }
 }
 
@@ -486,7 +493,11 @@ export default {
 .control-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
+    background-color: var(--ios-background-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--ios-system-gray5);
 }
 
 .control-header {
@@ -496,7 +507,7 @@ export default {
 }
 
 .control-label {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--ios-label-secondary);
     text-transform: uppercase;
@@ -504,7 +515,7 @@ export default {
 }
 
 .control-value {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 700;
     color: var(--ios-system-blue);
 }
@@ -512,19 +523,19 @@ export default {
 .slider-wrapper {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
 }
 
 .slider-icon {
-    font-size: 18px;
+    font-size: 20px;
     color: var(--ios-label-tertiary);
     flex-shrink: 0;
 }
 
 .ios-slider {
     flex: 1;
-    height: 6px;
-    border-radius: 3px;
+    height: 8px;
+    border-radius: 4px;
     background: linear-gradient(
         to right,
         var(--ios-system-blue) 0%,
@@ -542,8 +553,8 @@ export default {
 .ios-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--ios-system-blue);
     cursor: pointer;
@@ -558,8 +569,8 @@ export default {
 }
 
 .ios-slider::-moz-range-thumb {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--ios-system-blue);
     cursor: pointer;
@@ -572,33 +583,36 @@ export default {
 .speed-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
 }
 
 .speed-btn {
-    padding: var(--spacing-sm) var(--spacing-xs);
-    background-color: var(--ios-background-secondary);
+    padding: var(--spacing-md) var(--spacing-sm);
+    background-color: var(--ios-background-primary);
     border: 1px solid var(--ios-system-gray5);
     border-radius: var(--radius-md);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--ios-label-secondary);
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all var(--transition-base);
     outline: none;
+    min-height: 50px;
 }
 
 .speed-btn:hover {
-    background-color: var(--ios-background-primary);
+    background-color: var(--ios-background-secondary);
     border-color: var(--ios-system-blue);
     color: var(--ios-system-blue);
+    transform: translateY(-1px);
 }
 
 .speed-btn.active {
     background-color: var(--ios-system-blue);
     border-color: var(--ios-system-blue);
     color: white;
-    transform: scale(1.05);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Sections */
@@ -607,10 +621,10 @@ export default {
 }
 
 .section-title {
-    margin: 0 0 var(--spacing-lg) 0;
-    font-size: var(--font-size-sm);
+    margin: 0 0 var(--spacing-xl) 0;
+    font-size: var(--font-size-lg);
     font-weight: 700;
-    color: var(--ios-label-secondary);
+    color: var(--ios-label-primary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -618,15 +632,15 @@ export default {
 /* Playlists Grid */
 .playlists-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
 }
 
 .playlist-card {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border: 2px solid transparent;
     border-radius: var(--radius-lg);
@@ -670,7 +684,7 @@ export default {
 }
 
 .playlist-icon {
-    font-size: 32px;
+    font-size: 40px;
     flex-shrink: 0;
     filter: grayscale(0.3);
     transition: filter var(--transition-base);
@@ -686,8 +700,8 @@ export default {
 }
 
 .playlist-name {
-    margin: 0 0 var(--spacing-xs) 0;
-    font-size: var(--font-size-base);
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-primary);
     overflow: hidden;
@@ -697,7 +711,7 @@ export default {
 
 .playlist-meta {
     margin: 0;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     color: var(--ios-label-tertiary);
 }
 
@@ -705,16 +719,16 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     background-color: var(--ios-system-blue);
     border-radius: var(--radius-full);
     flex-shrink: 0;
 }
 
 .checkmark {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     background: white;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E")
@@ -724,8 +738,8 @@ export default {
 /* Features Grid */
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
 }
 
 .feature-btn {
@@ -733,14 +747,15 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-lg) var(--spacing-md);
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl) var(--spacing-lg);
     background-color: var(--ios-background-secondary);
     border: 1px solid var(--ios-system-gray5);
     border-radius: var(--radius-lg);
     cursor: pointer;
     transition: all var(--transition-base);
     outline: none;
+    min-height: 100px;
 }
 
 .feature-btn:hover {
@@ -758,7 +773,7 @@ export default {
 }
 
 .feature-icon {
-    font-size: 24px;
+    font-size: 28px;
     transition: transform var(--transition-base);
 }
 
@@ -767,7 +782,7 @@ export default {
 }
 
 .feature-text {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: inherit;
 }
@@ -778,7 +793,7 @@ export default {
 
 /* Timer Section */
 .timer-section {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--ios-background-secondary);
     border-radius: var(--radius-lg);
     margin-bottom: var(--spacing-xl);
@@ -787,7 +802,7 @@ export default {
 
 .timer-controls {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
     align-items: stretch;
 }
 
@@ -798,17 +813,18 @@ export default {
 
 .timer-input {
     width: 100%;
-    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md)
-        var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-lg)
+        var(--spacing-lg);
     border: 1px solid var(--ios-system-gray4);
     border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--ios-label-primary);
     text-align: center;
     outline: none;
     transition: all var(--transition-fast);
     background: var(--ios-background-primary);
+    height: 60px;
 }
 
 .timer-input:focus {
@@ -818,32 +834,34 @@ export default {
 
 .timer-unit {
     position: absolute;
-    right: var(--spacing-md);
+    right: var(--spacing-lg);
     top: 50%;
     transform: translateY(-50%);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-tertiary);
     pointer-events: none;
 }
 
 .btn-timer {
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
     background-color: var(--ios-system-blue);
     color: white;
     border: none;
     border-radius: var(--radius-md);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-base);
     outline: none;
     white-space: nowrap;
-    min-width: 120px;
+    min-width: 160px;
+    height: 60px;
 }
 
 .btn-timer:hover {
     background-color: #0056cc;
     transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-timer.active {
@@ -858,8 +876,8 @@ export default {
 .info-card {
     display: flex;
     align-items: flex-start;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background: linear-gradient(
         135deg,
         rgba(0, 122, 255, 0.05) 0%,
@@ -870,43 +888,57 @@ export default {
 }
 
 .info-icon {
-    font-size: 20px;
+    font-size: 24px;
     flex-shrink: 0;
     margin-top: 2px;
 }
 
 .info-text {
     margin: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--ios-label-secondary);
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
-/* Responsive Design */
+/* Responsive Design - Desktop First */
+@media (max-width: 1024px) {
+    .music-container {
+        max-width: 90%;
+    }
+
+    .playlists-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .music-container {
-        max-width: 100%;
+        max-width: 95%;
     }
 
     .card {
-        padding: var(--spacing-md);
-        border-radius: var(--radius-md);
+        padding: var(--spacing-xl);
     }
 
     .card-header {
         flex-direction: column;
         align-items: stretch;
-        gap: var(--spacing-md);
+        gap: var(--spacing-lg);
     }
 
     .now-playing {
         align-self: flex-start;
+        min-width: auto;
     }
 
     .player-card {
         flex-direction: column;
         text-align: center;
-        gap: var(--spacing-md);
+        gap: var(--spacing-lg);
     }
 
     .player-info {
@@ -915,7 +947,7 @@ export default {
 
     .playlists-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-sm);
+        gap: var(--spacing-md);
     }
 
     .features-grid {
@@ -932,10 +964,15 @@ export default {
 
     .btn-timer {
         width: 100%;
+        min-width: auto;
     }
 }
 
 @media (max-width: 480px) {
+    .card {
+        padding: var(--spacing-lg);
+    }
+
     .features-grid {
         grid-template-columns: 1fr;
     }
@@ -969,6 +1006,10 @@ export default {
 
     .timer-input {
         background: var(--ios-background-primary);
+    }
+
+    .control-section {
+        background: var(--ios-background-tertiary);
     }
 }
 </style>
